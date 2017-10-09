@@ -13,12 +13,12 @@
 <div class="container">
 	<nav class="navbar navbar-default">
 		<ul class="nav navbar-nav">
-			<li><a href="/">CodeU Chat App</a></li>
-			<li><a href="/conversations">Conversations</a></li>
+			<li><a href="/ChatApp">CodeU Chat App</a></li>
+			<li><a href="/ChatApp/conversations">Conversations</a></li>
 			<% if(request.getSession().getAttribute("user") != null){ %>
 			<li><a>Hello <%= request.getSession().getAttribute("user") %>!</a></li>
 			<% } else{ %>
-			<li><a href="/login">Login</a></li>
+			<li><a href="/ChatApp/login">Login</a></li>
 			<% } %>
 		</ul>
 	</nav>
@@ -42,7 +42,7 @@
 			have? How could you help? Think about technical consideration, privacy concerns, and
 			accessibility and internationalization.</li>
 	</ul>
-	<p><a href="/login">Login</a> to get started, then go to the <a href="/conversations">conversations</a>
+	<p><a href="/ChatApp/login">Login</a> to get started, then go to the <a href="/ChatApp/conversations">conversations</a>
 		page to create or join a conversation.</p>
 	
 	</div>

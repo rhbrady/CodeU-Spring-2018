@@ -21,7 +21,7 @@ import codeu.model.store.UserStore;
 public class ConversationServlet extends HttpServlet {
 
 	/**
-	 * This function fires when a user navigates to the /conversations URL.
+	 * This function fires when a user navigates to the conversations page.
 	 * It gets all of the conversations from the model and forwards to
 	 * conversations.jsp for rendering the list.
 	 */
@@ -45,7 +45,7 @@ public class ConversationServlet extends HttpServlet {
 		if(username == null){
 			// user is not logged in, don't let them create a conversation
 			System.out.println("Username was null.");
-			response.sendRedirect("/conversations");
+			response.sendRedirect("/ChatApp/conversations");
 			return;
 		}
 		
@@ -53,7 +53,7 @@ public class ConversationServlet extends HttpServlet {
 		if(user == null){
 			// user was not found, don't let them create a conversation
 			System.out.println("User not found: " + username);
-			response.sendRedirect("/conversations");
+			response.sendRedirect("/ChatApp/conversations");
 			return;
 		}
 		
@@ -68,7 +68,7 @@ public class ConversationServlet extends HttpServlet {
 		if(ConversationStore.getInstance().isTitleTaken(conversationTitle)){
 			// conversation title is already taken, just go into that conversation instead of creating a new one
 			System.out.println("Conversation already taken: " + conversationTitle);
-			response.sendRedirect("/chat/" + conversationTitle);
+			response.sendRedirect("/ChatApp/chat/" + conversationTitle);
 			return;
 		}
 		
@@ -76,6 +76,6 @@ public class ConversationServlet extends HttpServlet {
 		
 		Conversation conversation = new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, System.currentTimeMillis());
 		ConversationStore.getInstance().addConversation(conversation);
-		response.sendRedirect("/chat/" + conversationTitle);
+		response.sendRedirect("/ChatApp/chat/" + conversationTitle);
 	}
 }

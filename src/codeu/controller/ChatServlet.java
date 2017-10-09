@@ -25,7 +25,7 @@ import codeu.model.store.UserStore;
 public class ChatServlet extends HttpServlet {
 
 	/**
-	 * This function fires when a user navigates to the /chat/conversationTitle URL.
+	 * This function fires when a user navigates to the chat page.
 	 * It gets the conversation title from the URL, finds the corresponding Conversation,
 	 * and fetches the messages in that Conversation. It then forwards to chat.jsp for rendering.
 	 */
@@ -33,13 +33,13 @@ public class ChatServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		String requestUrl = request.getRequestURI();
-		String conversationTitle = requestUrl.substring("/chat/".length());
+		String conversationTitle = requestUrl.substring("/ChatApp/chat/".length());
 	
 		Conversation conversation = ConversationStore.getInstance().getConversationWithTitle(conversationTitle);
 		if(conversation == null){
 			// couldn't find conversation, redirect to conversation list
 			System.out.println("Conversation was null: " + conversationTitle);
-			response.sendRedirect("/conversations");
+			response.sendRedirect("/ChatApp/conversations");
 			return;
 		}
 		
@@ -64,24 +64,24 @@ public class ChatServlet extends HttpServlet {
 		String username = (String) request.getSession().getAttribute("user");
 		if(username == null){
 			// user is not logged in, don't let them add a message
-			response.sendRedirect("/login");
+			response.sendRedirect("/ChatApp/login");
 			return;
 		}
 		
 		User user = UserStore.getInstance().getUser(username);
 		if(user == null){
 			// user was not found, don't let them add a message
-			response.sendRedirect("/login");
+			response.sendRedirect("/ChatApp/login");
 			return;
 		}
 		
 		String requestUrl = request.getRequestURI();
-		String conversationTitle = requestUrl.substring("/chat/".length());
+		String conversationTitle = requestUrl.substring("/ChatApp/chat/".length());
 	
 		Conversation conversation = ConversationStore.getInstance().getConversationWithTitle(conversationTitle);
 		if(conversation == null){
 			// couldn't find conversation, redirect to conversation list
-			response.sendRedirect("/conversations");
+			response.sendRedirect("/ChatApp/conversations");
 			return;
 		}
 		
@@ -94,7 +94,7 @@ public class ChatServlet extends HttpServlet {
 		MessageStore.getInstance().addMessage(message);
 		
 		// redirect to a GET request
-		response.sendRedirect("/chat/" + conversationTitle);
+		response.sendRedirect("/ChatApp/chat/" + conversationTitle);
 	}
 		
 

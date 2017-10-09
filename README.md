@@ -4,7 +4,7 @@ This is a very rough example of the kind of direction we could go by using a ser
 
 # Step 1: Download Jetty
 
-Download Jetty [here](http://www.eclipse.org/jetty/download.html). Extract the `.zip` file anywhere you want. Putting it on your desktop for now is fine.
+Download Jetty from [here](http://www.eclipse.org/jetty/download.html). Extract the `.zip` file anywhere you want. Putting it on your desktop for now is fine.
 
 Your Jetty directory should look something like this:
 
@@ -101,4 +101,13 @@ java -jar start.jar
 # Step 5: Use the web app!
 
 Visit `http://localhost:8080/ChatApp/` in your browser. You should see the homepage of the chat app!
+
+# Step 6: Make a change!
+
+- Bring down the existing server by pressing `ctrl+c` in the console running Jetty.
+- Modify a `.java` or `.jsp` file. If you change a `.java` file, don't forget to recompile!
+- Delete the old `ChatApp` folder from the Jetty `webapps` directory.
+- Copy your working `ChatApp` folder into the Jetty `webapps` directory.
+- Run Jetty again.
+- Refresh your browser to see your changes!
 

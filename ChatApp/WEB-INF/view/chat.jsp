@@ -37,12 +37,12 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
 		<nav class="navbar navbar-default">
 			<ul class="nav navbar-nav">
-				<li><a href="/">CodeU Chat App</a></li>
-				<li><a href="/conversations">Conversations</a></li>
+				<li><a href="/ChatApp">CodeU Chat App</a></li>
+				<li><a href="/ChatApp/conversations">Conversations</a></li>
 				<% if(request.getSession().getAttribute("user") != null){ %>
 				<li><a>Hello <%= request.getSession().getAttribute("user") %>!</a></li>
 				<% } else{ %>
-				<li><a href="/login">Login</a></li>
+				<li><a href="/ChatApp/login">Login</a></li>
 				<% } %>
 			</ul>
 		</nav>
@@ -67,7 +67,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 	<hr/>
 	
 	<% if(request.getSession().getAttribute("user") != null){ %>
-	<form action="/chat/<%= conversation.getTitle() %>" method="POST">	  	
+	<form action="/ChatApp/chat/<%= conversation.getTitle() %>" method="POST">	  	
 			<input type="text" name="message" class="form-control">
 			<br/>
 			<button type="submit" class="btn btn-primary">Send</button>
@@ -76,7 +76,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 		} 
 		else{
 	%>
-		<p><a href="/login">Login</a> to send a message.</p>
+		<p><a href="/ChatApp/login">Login</a> to send a message.</p>
 	<%
 		}
 	%>
