@@ -1,0 +1,81 @@
+package codeu.controller;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import codeu.model.data.Conversation;
+import codeu.model.data.User;
+import codeu.model.store.ConversationStore;
+import codeu.model.store.UserStore;
+
+/**
+ * Servlet class responsible for the conversations page.
+ *
+ */
+public class ConversationServlet extends HttpServlet {
+
+	/**
+	 * This function fires when a user navigates to the /conversations URL.
+	 * It gets all of the conversations from the model and forwards to
+	 * conversations.jsp for rendering the list.
+	 */
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		List<Conversation> conversations = ConversationStore.getInstance().getAllConversations();
+		request.setAttribute("conversations", conversations);
+		request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request,response);
+	}
+	
+	/**
+	 * This function fires when a user submits the form on the conversations page.
+	 * It gets the logged-in username from the session and the new conversation
+	 * title from the submitted form data. It uses this to create a new
+	 * Conversation object that it adds to the model.
+	 */
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		String username = (String) request.getSession().getAttribute("user");
+		if(username == null){
+			// user is not logged in, don't let them create a conversation
+			System.out.println("Username was null.");
+			response.sendRedirect("/conversations");
+			return;
+		}
+		
+		User user = UserStore.getInstance().getUser(username);
+		if(user == null){
+			// user was not found, don't let them create a conversation
+			System.out.println("User not found: " + username);
+			response.sendRedirect("/conversations");
+			return;
+		}
+		
+		String conversationTitle = request.getParameter("conversationTitle");
+		if(!conversationTitle.matches("[\\w*]*")){
+			System.out.println("Invalid conversation title: " + conversationTitle);
+			request.setAttribute("error", "Please enter only letters and numbers.");
+			request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request,response);
+			return;
+		}
+		
+		if(ConversationStore.getInstance().isTitleTaken(conversationTitle)){
+			// conversation title is already taken, just go into that conversation instead of creating a new one
+			System.out.println("Conversation already taken: " + conversationTitle);
+			response.sendRedirect("/chat/" + conversationTitle);
+			return;
+		}
+		
+		System.out.println("Creating conversation: " + conversationTitle);
+		
+		Conversation conversation = new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, System.currentTimeMillis());
+		ConversationStore.getInstance().addConversation(conversation);
+		response.sendRedirect("/chat/" + conversationTitle);
+	}
+}
