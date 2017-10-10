@@ -54,7 +54,9 @@ There are a number of ways to generate this. Here are some common options.
 
 ## Compiling with the Console
 
-From the top-level `codeu_example_project` directory, execute the following command:
+Create a `classes` directory inside `ChatApp/WEB-INF`.
+
+Then from the top-level `codeu_example_project` directory, execute the following command:
 
 **Windows**
 
@@ -62,9 +64,13 @@ From the top-level `codeu_example_project` directory, execute the following comm
 javac -cp "src;C:\PATH\TO\jetty-distribution\lib\servlet-api-3.1.jar;ChatApp\WEB-INF\lib\jsoup-1.10.3.jar" -d "ChatApp\WEB-INF\classes" src/codeu/controller/*.java
 ```
 
-**Linux**
+**Mac or Linux**
 
-(Coming soon...)
+```
+javac -cp "src:/PATH/TO/jetty-distribution/lib/servlet-api-3.1.jar:ChatApp/WEB-INF/lib/jsoup-1.10.3.jar" -d "ChatApp/WEB-INF/classes" src/codeu/controller/*.java
+```
+
+(Change `PATH/TO` to wherever you placed your Jetty directory.)
 
 You should now see the `.class` files inside the `classes` directory. Proceed to step 3!
 
