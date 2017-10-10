@@ -82,7 +82,22 @@ Now Eclipse will automatically compile your `.java` files and put them in the `c
 
 ## Compiling with Intellij
 
-Coming soon...
+- Download Intellij IDEA
+- Click `Create New Project` on the welcome screen.
+- Select `Java Enterprise` and click `Next`. Click `Next` again to skip the template step.
+- Change the `Project location` to your top-level `codeu_example_project` directory.
+- Click `Finish`.
+- Right-click the project and click `Open Module Settings`.
+- Click `Modules` on the left and select the `Path` tab.
+- Select `Use module compile output path` and change the `Output path` to your `ChatApp/WEB-INF/classes` directory.
+- Click `Libraries` on the left.
+- Click the add button (looks like a green + sign). Click `Java`, then select the `servlet-api-3.1.jar` file from your Jetty directory. Click `OK`.
+- Click the add button again. Click `Java`, then select the `jsoup-1.10.3.jar` file from the `ChatApp/WEB-INF/lib` directory. Click `OK`.
+- Click `OK` to close the settings dialog.
+- Click the `Build` menu and select `Build Project`.
+
+Whenever you select `Build Project`, Intellij will compile your `.java` files and put them in the `classes` directory. Proceed to step 3!
+
 
 # Step 3: Deploy the web app
 
