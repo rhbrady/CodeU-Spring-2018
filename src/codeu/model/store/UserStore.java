@@ -57,8 +57,8 @@ public class UserStore {
 		return null;
 	}
 
-	public void addUser(User conversation) {
-		users.add(conversation);
+	public void addUser(User user) {
+		users.add(user);
 	}
 
 	/**
