@@ -1,4 +1,4 @@
-package codeu.model.store;
+package codeu.model.store.basic;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +8,7 @@ import java.util.UUID;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
+import codeu.model.store.interfaces.DefaultDataStore;
 
 /**
  * This class makes it easy to add dummy data to your chat app instance.
@@ -16,7 +17,7 @@ import codeu.model.data.User;
  * and messages.
  *
  */
-public class DefaultDataStore {
+public class BasicDefaultDataStore implements DefaultDataStore{
 
 	/**
 	 * Set this to true to use generated default data.
@@ -41,9 +42,9 @@ public class DefaultDataStore {
 	 */
 	private int DEFAULT_MESSAGE_COUNT = 10000;
 	
-	private static DefaultDataStore instance = new DefaultDataStore();
+	private static BasicDefaultDataStore instance = new BasicDefaultDataStore();
 
-	public static DefaultDataStore getInstance() {
+	public static BasicDefaultDataStore getInstance() {
 		return instance;
 	}
 
@@ -55,7 +56,7 @@ public class DefaultDataStore {
 	 * This class is a singleton, so its constructor is private.
 	 * Call getInstance() instead.
 	 */
-	private DefaultDataStore(){
+	private BasicDefaultDataStore(){
 		users = new ArrayList<>();
 		conversations = new ArrayList<>();
 		messages = new ArrayList<>();
@@ -68,15 +69,18 @@ public class DefaultDataStore {
 		
 	}
 	
-	public List<User> getUsers() {
+	@Override
+	public List<User> getDefaultUsers() {
 		return users;
 	}
 	
-	public List<Conversation> getConversations() {
+	@Override
+	public List<Conversation> getDefaultConversations() {
 		return conversations;
 	}
 	
-	public List<Message> getMessages() {
+	@Override
+	public List<Message> getDefaultMessages() {
 		return messages;
 	}
 	

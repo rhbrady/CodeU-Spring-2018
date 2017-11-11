@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import codeu.model.data.User;
-import codeu.model.store.UserStore;
+import codeu.model.store.basic.BasicUserStore;
 
 /**
  * Servlet class responsible for the login page.
@@ -40,9 +40,9 @@ public class LoginServlet  extends HttpServlet {
 			return;
 		}
 		
-		if(!UserStore.getInstance().isUserRegistered(username)){
+		if(!BasicUserStore.getInstance().isUserRegistered(username)){
 			User user = new User(UUID.randomUUID(), username, System.currentTimeMillis());
-			UserStore.getInstance().addUser(user);
+			BasicUserStore.getInstance().addUser(user);
 		}
 		
 		request.getSession().setAttribute("user", username);

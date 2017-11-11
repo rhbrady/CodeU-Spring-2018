@@ -15,9 +15,9 @@ import org.jsoup.safety.Whitelist;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
-import codeu.model.store.ConversationStore;
-import codeu.model.store.MessageStore;
-import codeu.model.store.UserStore;
+import codeu.model.store.basic.BasicConversationStore;
+import codeu.model.store.basic.BasicMessageStore;
+import codeu.model.store.basic.BasicUserStore;
 
 /**
  * Servlet class responsible for the chat page.
@@ -35,7 +35,7 @@ public class ChatServlet extends HttpServlet {
 		String requestUrl = request.getRequestURI();
 		String conversationTitle = requestUrl.substring("/ChatApp/chat/".length());
 	
-		Conversation conversation = ConversationStore.getInstance().getConversationWithTitle(conversationTitle);
+		Conversation conversation = BasicConversationStore.getInstance().getConversationWithTitle(conversationTitle);
 		if(conversation == null){
 			// couldn't find conversation, redirect to conversation list
 			System.out.println("Conversation was null: " + conversationTitle);
@@ -45,7 +45,7 @@ public class ChatServlet extends HttpServlet {
 		
 		UUID conversationId = conversation.getId();
 		
-		List<Message> messages = MessageStore.getInstance().getMessagesInConversation(conversationId);
+		List<Message> messages = BasicMessageStore.getInstance().getMessagesInConversation(conversationId);
 		
 		request.setAttribute("conversation", conversation);
 		request.setAttribute("messages", messages);
@@ -68,7 +68,7 @@ public class ChatServlet extends HttpServlet {
 			return;
 		}
 		
-		User user = UserStore.getInstance().getUser(username);
+		User user = BasicUserStore.getInstance().getUser(username);
 		if(user == null){
 			// user was not found, don't let them add a message
 			response.sendRedirect("/ChatApp/login");
@@ -78,7 +78,7 @@ public class ChatServlet extends HttpServlet {
 		String requestUrl = request.getRequestURI();
 		String conversationTitle = requestUrl.substring("/ChatApp/chat/".length());
 	
-		Conversation conversation = ConversationStore.getInstance().getConversationWithTitle(conversationTitle);
+		Conversation conversation = BasicConversationStore.getInstance().getConversationWithTitle(conversationTitle);
 		if(conversation == null){
 			// couldn't find conversation, redirect to conversation list
 			response.sendRedirect("/ChatApp/conversations");
@@ -91,7 +91,7 @@ public class ChatServlet extends HttpServlet {
 		String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
 		
 		Message message = new Message(UUID.randomUUID(), conversation.getId(), user.getId(), cleanedMessageContent, System.currentTimeMillis());
-		MessageStore.getInstance().addMessage(message);
+		BasicMessageStore.getInstance().addMessage(message);
 		
 		// redirect to a GET request
 		response.sendRedirect("/ChatApp/chat/" + conversationTitle);

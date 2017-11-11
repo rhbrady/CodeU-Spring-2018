@@ -1,19 +1,23 @@
-package codeu.model.store;
+package codeu.model.store.basic;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import codeu.model.data.Conversation;
+import codeu.model.store.interfaces.ConversationStore;
 
 /**
- * This class is responsible for maintaining Conversation data.
- * It's a singleton so different servlet classes can access the same instance.
+ * Basic implementation of ConversationStore that uses in-memory data structures
+ * to hold values. It's a singleton so different servlet classes can access the 
+ * same instance. <br/>
+ * Because this class uses in-memory data structures, all data is cleared whenever
+ * the server is restarted, redeployed, or put in standby mode.
  */
-public class ConversationStore {
+public class BasicConversationStore implements ConversationStore{
 
-	private static ConversationStore instance = new ConversationStore();
+	private static BasicConversationStore instance = new BasicConversationStore();
 	
-	public static ConversationStore getInstance() {
+	public static BasicConversationStore getInstance() {
 		return instance;
 	}
 	
@@ -23,22 +27,22 @@ public class ConversationStore {
 	 * This class is a singleton, so its constructor is private.
 	 * Call getInstance() instead.
 	 */
-	private ConversationStore(){
+	private BasicConversationStore(){
 		conversations = new ArrayList<>();
-		conversations.addAll(DefaultDataStore.getInstance().getConversations());
+		conversations.addAll(BasicDefaultDataStore.getInstance().getDefaultConversations());
 	}
 
+	@Override
 	public List<Conversation> getAllConversations() {
 		return conversations;
 	}
 
+	@Override
 	public void addConversation(Conversation conversation) {
 		conversations.add(conversation);
 	}
 
-	/**
-	 * Returns true if a Conversation already has the parameter title.
-	 */
+	@Override
 	public boolean isTitleTaken(String title) {
 		for(Conversation conversation : conversations){
 			if(conversation.getTitle().equals(title)){
@@ -48,10 +52,7 @@ public class ConversationStore {
 		return false;
 	}
 
-	/**
-	 * Returns the Conversation with the parameter title,
-	 * or null if no matching Conversation is found.
-	 */
+	@Override
 	public Conversation getConversationWithTitle(String title) {
 		for(Conversation conversation : conversations){
 			if(conversation.getTitle().equals(title)){

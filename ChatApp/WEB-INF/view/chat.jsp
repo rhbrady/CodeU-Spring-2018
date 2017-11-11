@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
-<%@ page import="codeu.model.store.UserStore" %>
+<%@ page import="codeu.model.store.basic.BasicUserStore" %>
 <% 
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -55,7 +55,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 		<ul>
 	<%
 		for(Message message : messages){
-			String author = UserStore.getInstance().getUser(message.getAuthor()).getName();
+			String author = BasicUserStore.getInstance().getUser(message.getAuthor()).getName();
 	%>
 		<li><strong><%= author %>:</strong> <%= message.getContent() %></li>
 	<%

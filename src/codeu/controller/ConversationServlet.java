@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
-import codeu.model.store.ConversationStore;
-import codeu.model.store.UserStore;
+import codeu.model.store.basic.BasicConversationStore;
+import codeu.model.store.basic.BasicUserStore;
 
 /**
  * Servlet class responsible for the conversations page.
@@ -27,7 +27,7 @@ public class ConversationServlet extends HttpServlet {
 	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		List<Conversation> conversations = ConversationStore.getInstance().getAllConversations();
+		List<Conversation> conversations = BasicConversationStore.getInstance().getAllConversations();
 		request.setAttribute("conversations", conversations);
 		request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request,response);
 	}
@@ -49,7 +49,7 @@ public class ConversationServlet extends HttpServlet {
 			return;
 		}
 		
-		User user = UserStore.getInstance().getUser(username);
+		User user = BasicUserStore.getInstance().getUser(username);
 		if(user == null){
 			// user was not found, don't let them create a conversation
 			System.out.println("User not found: " + username);
@@ -65,7 +65,7 @@ public class ConversationServlet extends HttpServlet {
 			return;
 		}
 		
-		if(ConversationStore.getInstance().isTitleTaken(conversationTitle)){
+		if(BasicConversationStore.getInstance().isTitleTaken(conversationTitle)){
 			// conversation title is already taken, just go into that conversation instead of creating a new one
 			System.out.println("Conversation already taken: " + conversationTitle);
 			response.sendRedirect("/ChatApp/chat/" + conversationTitle);
@@ -75,7 +75,7 @@ public class ConversationServlet extends HttpServlet {
 		System.out.println("Creating conversation: " + conversationTitle);
 		
 		Conversation conversation = new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, System.currentTimeMillis());
-		ConversationStore.getInstance().addConversation(conversation);
+		BasicConversationStore.getInstance().addConversation(conversation);
 		response.sendRedirect("/ChatApp/chat/" + conversationTitle);
 	}
 }
