@@ -31,7 +31,7 @@ public class ChatServlet extends HttpServlet {
 	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
+		System.out.println("doGet");
 		String requestUrl = request.getRequestURI();
 		String conversationTitle = requestUrl.substring("/ChatApp/chat/".length());
 	
