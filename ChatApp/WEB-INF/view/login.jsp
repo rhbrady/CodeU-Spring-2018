@@ -3,16 +3,6 @@
 <head>
 	<title>Login</title>
 	<link rel="stylesheet" href="/ChatApp/css/main.css">
-
-	<style>
-		input{
-			font-size: 18px;
-		}
-
-		button{
-			font-size: 18px;
-		}
-	</style>
 </head>
 <body>
 

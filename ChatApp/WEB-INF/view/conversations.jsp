@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<div class="mdl-layout__container">
 	<nav>
 		<a id="navTitle" href="/ChatApp">CodeU Chat App</a>
 		<a href="/ChatApp/conversations">Conversations</a>
@@ -19,7 +18,6 @@
 			<a href="/ChatApp/login">Login</a>
 		<% } %>
 	</nav>
-
 
 	<div id="container">	
 
