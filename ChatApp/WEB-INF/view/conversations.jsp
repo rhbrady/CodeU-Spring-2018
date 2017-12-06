@@ -30,7 +30,7 @@
 			<form action="/ChatApp/conversations" method="POST">	  	
 			  	<div class="form-group">
 			  		<label class="form-control-label">Title:</label>
-					<input type="text" name="conversationTitle" class="form-control">
+					<input type="text" name="conversationTitle">
 				</div>
 
 				<button type="submit">Create</button>
