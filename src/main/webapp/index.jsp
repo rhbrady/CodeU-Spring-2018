@@ -21,7 +21,7 @@
     <div
       style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
 
-      <h1>CodeU Chat App</h1>
+      <h1>Hello Alyssa</h1>
       <p>Welcome to the CodeU Chat App! This is an example chat application
         designed to make it easy to improve and build on. Here's some stuff to
         think about:</p>
